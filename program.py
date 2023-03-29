@@ -1,37 +1,40 @@
-#Задача 6: Вы пользуетесь общественным транспортом?
-#Вероятно, вы расплачивались за проезд и получали билет с номером.
-#Счастливым билетом называют такой билет с шестизначным номером,
-#где сумма первых трех цифр равна сумме последних трех. 
-#Т.е. билет с номером 385916 – счастливый, т.к. 3+8+5=9+1+6. 
-#Вам требуется написать программу, которая проверяет счастливость билета.
+# Задача 8: Требуется определить, можно ли от шоколадки размером n × m долек
+# отломить k долек, если разрешается сделать один разлом по прямой между дольками
+# (то есть разломить шоколадку на два прямоугольника).
 
+# *Пример:*
+
+# 3 2 4 -> yes
+# 3 2 1 -> no
 
 from curses.ascii import isdigit
-import math
 
-def half (entered, head:bool):
-    res = 0
-    if head:
-        countRange = [0,3]
-    else:
-        countRange = [3,6]
+def IntCheckedInput (message:str) :
+    while True:
+        res = input(f'{message}: ')
+        if res.isdigit():
+            return int(res)
+        print('Enter digits only, please!')
 
-    for i in entered[ countRange[0] : countRange[1] ]:        
-        res+=int(i)
-    return res
+def IntCheckedInputLtd (message:str, max:int) :
+    while True:
+        res = input(f'{message}: ')
+        if res.isdigit():
+            if int(res)<int(max):
+                return int(res)
+            else:
+                print(f'number must be less than {max}')
+        else:
+            print('Enter digits only, please!')              
 
+rows_in_bar = IntCheckedInput('Enter count of rows in the bar')
+slices_in_row = IntCheckedInput('Enter count of slices in a row of the bar')
+slices_brokenout = IntCheckedInputLtd(
+    f'Enter count of slices broken out, not more than {rows_in_bar * slices_in_row // 2}',
+     rows_in_bar * slices_in_row // 2)
 
-while True:
-    ticket_id = input ("enter the ticket id: ")
-    if len(ticket_id) != 6:
-        print("count of digits must be equal to six!")
-    else:
-        if ticket_id.isdigit():
-            break
-    print("ticket id must contain only digits!")
-
-if half (ticket_id, True) == half (ticket_id, False):
-    print('Your ticket is happy')
+if slices_brokenout % slices_in_row == 0 or slices_brokenout % rows_in_bar == 0:
+    print(f'There is possible to brake out {slices_brokenout} slices by one break.')
 else:
-    print('Your ticket is NOT happy, sorry... Try another.')
-
+    print(f'No, there is impossible to brake out {slices_brokenout} slices in one row.')
+    
