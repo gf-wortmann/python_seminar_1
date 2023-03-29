@@ -1,14 +1,23 @@
-#Задача 2: Найдите сумму цифр трехзначного числа.
-
+# Задача 4: Петя, Катя и Сережа делают из бумаги журавликов. Вместе
+# они сделали S журавликов. Сколько журавликов сделал каждый
+# ребенок, если известно, что Петя и Сережа сделали одинаковое
+# количество журавликов, а Катя сделала в два раза больше журавликов,
+# чем Петя и Сережа вместе?
+from curses.ascii import isdigit
 import math
 
-number = input('Enter a 3-digit number: ')
-result : int = 0
-if number.isdigit() and (len(number) == 3) :
-    for i in number :
-        result += int(i)
-    print(f'Sum of the digits of the the entered number is equal to: {result}')
-else:
-    print('It seems to me you\'ve entered an incorrect number...')
-    
-    
+
+while True:
+    s = input('Enter how many paper cranes have made all the kids? (Number must be natural) :')
+    try:
+        s = int(s)
+        if s > 0:
+            if s % 6 == 0:
+                print (f'Katya has made {s//3*2} paper cranes and every boy by {s//6} ones')
+                break
+            else: 
+                print ('Sorry, number of paper cranes must be a multiple of six')
+        else: 
+            print(f'Sorry, {s} isn\'t a natural number')
+    except :
+        print(f'Sorry, you\'ve entered incorrect number or not a number..')
