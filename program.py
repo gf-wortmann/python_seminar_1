@@ -11,3 +11,4 @@ if number.isdigit() and (len(number) == 3) :
 else:
     print('It seems to me you\'ve entered an incorrect number...')
     
+    
